@@ -1,44 +1,46 @@
 #include <iostream>
 #include <ctime>
-const int ARRAY_SIZE = 50000;
+const int ARRAY_SIZE = 5000;
 
 int staticArray(){
+  std::clock_t start = std::clock();
   static int foo[ARRAY_SIZE];
+  for (int i = 0; i < ARRAY_SIZE; i++) {
+      foo[i] =  0;
+  }
+  double duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+  std::cout<<"Static Array: "<<duration<<'\n';
   return 0;
 }
 
 int stackArray(){
+  std::clock_t start = std::clock();
   int baz[ARRAY_SIZE];
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+      baz[i] =  0;
+  }
+  double duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+  std::cout<<"Stack Array: "<<duration<<'\n';
   return 0;
 }
 
 int heapArray(){
+  std::clock_t start = std::clock();
   int *bar= new int[ARRAY_SIZE];
+      for (int i = 0; i < ARRAY_SIZE; i++) {
+      bar[i] = 0;
+  } 
+  double duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+  std::cout<<"Heap Array: "<<duration<<'\n';
   return 0;
 }
 
 
 int main() {
-    std::clock_t start;
-    double duration1;
-    double duration2;
-    double duration3;
 
-    start = std::clock();
     staticArray();
-    duration1 = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-
-    start = std::clock();
     stackArray();
-    duration2 = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-
-    start = std::clock();
     heapArray();
-    duration3 = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
-
-  std::cout<<"Static Array: "<< duration1 <<'\n';
-  std::cout<<"Stack Array: "<< duration2 <<'\n';
-  std::cout<<"Heap Array: "<< duration3 <<'\n';
 
 }
 
